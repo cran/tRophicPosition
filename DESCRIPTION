@@ -1,0 +1,26 @@
+Package: tRophicPosition
+Type: Package
+Title: Bayesian Trophic Position Calculation with Stable Isotopes
+Version: 0.7.0
+Date: 2017-06-11
+Depends: R (>= 3.4.0)
+Imports: coda, dplyr, ggplot2, gridExtra, hdrcde, MCMCglmm, MCMCvis,
+        plyr, rjags, runjags, stats, SIBER
+Author: Claudio Quezada-Romegialli, Andrew L Jackson, Chris Harrod
+URL: https://github.com/AndrewLJackson/tRophicPosition
+BugReports: https://groups.google.com/d/forum/trophicposition-support
+Maintainer: Claudio Quezada-Romegialli <clquezada@harrodlab.net>
+Description: Estimates the trophic position of a consumer relative 
+    to a baseline species. It implements a Bayesian approach which combines an 
+    interface to the JAGS MCMC library of rjags and stable isotopes. This is the
+    version 0.7.0, so users are encouraged to test the  package and send bugs and 
+    trophicposition-support@googlegroups.com.
+License: GPL (>= 2)
+LazyData: TRUE
+RoxygenNote: 6.0.1
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2017-06-12 04:02:56 UTC; clquezada
+Repository: CRAN
+Date/Publication: 2017-06-12 04:28:47 UTC
