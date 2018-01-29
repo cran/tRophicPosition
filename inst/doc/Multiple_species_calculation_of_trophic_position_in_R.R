@@ -1,3 +1,8 @@
+## ---- eval = FALSE, echo = FALSE-----------------------------------------
+#  # To update sysdata
+#  sysdata <- tRophicPosition:::sysdata
+#  devtools::use_data(sysdata, internal = TRUE, overwrite = TRUE)
+
 ## ----eval = FALSE--------------------------------------------------------
 #  install.packages("tRophicPosition")
 
@@ -34,8 +39,8 @@ Bilagay <- Bilagay %>% arrange(NS)
 
 ## ------------------------------------------------------------------------
 BilagayList <- extractIsotopeData(Bilagay, b1 = "Pelagic_BL", b2 = "Benthic_BL",
-                                  baselineColumn = "FG", speciesColumn = "Spp",
-                                  communityColumn = "Community",
+                                  baselineColumn = "FG", consumersColumn = "Spp",
+                                  groupsColumn = "Community",
                                   d13C = "d13C", d15N = "d15N")
 
 ## ----eval = FALSE--------------------------------------------------------
@@ -59,24 +64,24 @@ for (community in BilagayList[1]) {
 ## ---- eval = FALSE-------------------------------------------------------
 #  Bilagay_models <- multiSpeciesTP(BilagayList, model = "twoBaselinesFull",
 #                                               n.adapt = 10000, n.iter = 10000,
-#                                               burnin = 10000, n.chains = 2, print = FALSE)
+#                                               burnin = 10000, n.chains = 5, print = FALSE)
 
 ## ---- echo=FALSE---------------------------------------------------------
 a <- multiSpeciesTP(BilagayList[1], model = "twoBaselinesFull",
                     n.adapt = 100, n.iter = 100,
-                    burnin = 100, n.chains = 2, print = FALSE)
+                    burnin = 100, n.chains = 5, print = FALSE)
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # By default the mode is used in both trophic position and alpha plots
-#  credibilityIntervals(Bilagay_models$df, x = "community", xlab ="Community")
+#  credibilityIntervals(Bilagay_models$df, x = "group", xlab ="Community")
 #  
 #  # If you want to use the median instead of the mode,
 #  # just add y1 and y2 as arguments
-#  credibilityIntervals(Bilagay_models$df, x = "community", xlab ="Community",
+#  credibilityIntervals(Bilagay_models$df, x = "group", xlab ="Community",
 #                       y1 = "median", y2 = "alpha.median")
 
 ## ----echo = FALSE, fig.width = 7, fig.height = 5-------------------------
-credibilityIntervals(tRophicPosition:::Bilagay_models$df, x = "community", xlab ="Community")
+credibilityIntervals(tRophicPosition:::sysdata$vignetteMSCTP$Bilagay_models$df, x = "group", xlab ="Community")
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # To get a numerical summary
@@ -87,10 +92,10 @@ credibilityIntervals(tRophicPosition:::Bilagay_models$df, x = "community", xlab 
 
 ## ----echo = FALSE--------------------------------------------------------
 # To get a numerical summary
-sapply(tRophicPosition:::Bilagay_models$"TPs", quantile, probs = c(0.025, 0.5, 0.975)) %>% round(3)
+sapply(tRophicPosition:::sysdata$vignetteMSCTP$Bilagay_models$"TPs", quantile, probs = c(0.025, 0.5, 0.975)) %>% round(3)
 
 # To get the mode
-getPosteriorMode(tRophicPosition:::Bilagay_models$"TPs")
+getPosteriorMode(tRophicPosition:::sysdata$vignetteMSCTP$Bilagay_models$"TPs")
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # First, we compare bilagay posterior trophic position estimates
@@ -101,10 +106,10 @@ getPosteriorMode(tRophicPosition:::Bilagay_models$"TPs")
 
 ## ----echo = FALSE--------------------------------------------------------
 # First, we compare bilagay posterior trophic position estimates
-pairwiseTP <- pairwiseComparisons(tRophicPosition:::Bilagay_models$TPs[1:8], print = TRUE)
+pairwiseTP <- pairwiseComparisons(tRophicPosition:::sysdata$vignetteMSCTP$Bilagay_models$TPs[1:8], print = TRUE)
 
 # And then, we compare their posterior alpha estimates
-pairwiseAlpha <- pairwiseComparisons(tRophicPosition:::Bilagay_models$Alphas[1:8], print = TRUE)
+pairwiseAlpha <- pairwiseComparisons(tRophicPosition:::sysdata$vignetteMSCTP$Bilagay_models$Alphas[1:8], print = TRUE)
 
 ## ----eval = FALSE--------------------------------------------------------
 #  cl <- parallel::makePSOCKcluster(parallel::detectCores())
@@ -127,5 +132,5 @@ pairwiseAlpha <- pairwiseComparisons(tRophicPosition:::Bilagay_models$Alphas[1:8
 #  print(rbind(time_parallel, time_serial))
 
 ## ----echo = FALSE--------------------------------------------------------
-print(tRophicPosition:::Bilagay_models$time)
+print(tRophicPosition:::sysdata$vignetteMSCTP$time)
 

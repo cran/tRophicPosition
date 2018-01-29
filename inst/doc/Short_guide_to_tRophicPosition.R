@@ -1,3 +1,8 @@
+## ---- eval = FALSE, echo = FALSE-----------------------------------------
+#  # To update sysdata
+#  sysdata <- tRophicPosition:::sysdata
+#  devtools::use_data(sysdata, internal = TRUE, overwrite = TRUE)
+
 ## ----eval = FALSE--------------------------------------------------------
 #  install.packages("tRophicPosition")
 
@@ -22,24 +27,25 @@ BilagayMEC <- read.csv(system.file("extdata", "Bilagay-MEC.csv",
 head(BilagayMEC)
 
 ## ------------------------------------------------------------------------
-consumer <- loadIsotopeData(BilagayMEC, species = "Bilagay", speciesColumn = "FG",
+consumer <- loadIsotopeData(BilagayMEC, consumer = "Bilagay", consumersColumn = "FG",
                             b1 = "Pelagic_BL", b2 = "Benthic_BL",
                             baselineColumn = "FG",
-                            community = "Coquimbo", communityColumn = "Location")
+                            group = "Coquimbo", groupsColumn = "Location")
 
 ## ------------------------------------------------------------------------
-# First we get TDF values from bibliography using McCutchan's et al (2003) paper
+# First we get TDF values from the internal database using McCutchan's et al
+# (2003) paper
 TDF_values <- TDF(author = "McCutchan", element = "both", type = "muscle")
 
 # Then we use those values within the call to loadIsotopeData()
 consumer_with_McCutchan <- loadIsotopeData(BilagayMEC, 
-                                           species = "Bilagay",
+                                           consumer = "Bilagay",
                                            b1 = "Pelagic_BL",
                                            b2 = "Benthic_BL", 
-                                           community = "Coquimbo",
-                                           speciesColumn = "FG",
+                                           group = "Coquimbo",
+                                           consumersColumn = "FG",
                                            baselineColumn = "FG",
-                                           communityColumn = "Location",
+                                           groupsColumn = "Location",
                                            deltaN = TDF_values$deltaN,
                                            deltaC = TDF_values$deltaC)
 
@@ -68,7 +74,7 @@ model <- TPmodel(data = consumer, model.string = model.string,
 posterior.samples <- posteriorTP(model = model, n.iter = 500,
                                  variable.names = c("TP", "muDeltaN"))
 
-posterior.samples <- tRophicPosition:::Bilagay_models$posterior.samples
+posterior.samples <- tRophicPosition:::sysdata$vignetteSGTP$posterior.samples
 
 ## ---- fig.width = 6, fig.height = 5--------------------------------------
 summary(posterior.samples)
@@ -81,15 +87,14 @@ posterior.combined <- coda::mcmc(do.call(rbind, posterior.samples))
 getPosteriorMode(posterior.combined)
 
 ## ---- fig.width = 6, fig.height = 6--------------------------------------
-# First we install the package MCMCvis if we haven't done it before
-# install.packages("MCMCvis")
- 
-# MCMCvis plots trace and density from posterior samples
-MCMCvis::MCMCtrace(posterior.samples)
+plot(posterior.samples)
 
 ## ---- fig.width = 5, fig.height = 3.8------------------------------------
-# MCMCplot visualize posterior distributions using caterpillar plots
-MCMCvis::MCMCplot(posterior.samples, ylim = c(0,5), horiz = FALSE)
+# First we combine the 2 chains
+combined <- as.data.frame(coda::mcmc(do.call(rbind, posterior.samples)))
+
+# Then we plot the data using a wrapper of SIBER::siberDensityPlot()
+plotTP(combined, xlab = "Monitored variables")
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  browseVignettes("tRophicPosition")

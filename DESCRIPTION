@@ -1,11 +1,11 @@
 Package: tRophicPosition
 Type: Package
 Title: Bayesian Trophic Position Calculation with Stable Isotopes
-Version: 0.7.3
-Date: 2017-10-12
+Version: 0.7.5
+Date: 2018-01-26
 Depends: R (>= 3.4.0)
-Imports: coda, ggplot2, gridExtra, hdrcde, MCMCglmm, plyr, rjags,
-        stats, SIBER
+Imports: coda, data.table, ggplot2, gridExtra, hdrcde, MCMCglmm, plyr,
+        rjags, stats, ArgumentCheck
 Author: Claudio Quezada-Romegialli, Andrew L Jackson, Chris Harrod
 URL: https://github.com/clquezada/tRophicPosition
 BugReports: https://groups.google.com/d/forum/trophicposition-support
@@ -18,9 +18,9 @@ Description: Estimates the trophic position of a consumer relative
 License: GPL (>= 2)
 LazyData: TRUE
 RoxygenNote: 6.0.1
-Suggests: dplyr, knitr, MCMCvis, rmarkdown
+Suggests: dplyr, knitr, rmarkdown, testthat, covr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-10-12 14:53:46 UTC; claud
+Packaged: 2018-01-29 03:11:45 UTC; clquezada
 Repository: CRAN
-Date/Publication: 2017-10-12 15:07:10 UTC
+Date/Publication: 2018-01-29 05:22:00 UTC

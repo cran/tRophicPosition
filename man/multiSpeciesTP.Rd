@@ -49,14 +49,14 @@ A list of 4 elements. The output is organised as lists nested. The
   and models.
 }
 \description{
-This function takes a named list of isotopeData class objects and calculates one
-or more Bayesian models of trophic position for each element of the list.
+This function takes a named list of isotopeData class objects and calculates
+one or more Bayesian models of trophic position for each element of the list.
 }
 \examples{
 siDataList <- list("consumer1" = generateTPData(consumer = "consumer1"),
 "consumer2" = generateTPData(consumer = "consumer2"))
 models <- multiSpeciesTP(siDataList, model = "twoBaselines", n.adapt = 500,
 n.iter = 500, burnin = 500)
-credibilityIntervals(models$df, x = "species")
+credibilityIntervals(models$df, x = "consumer")
 
 }
