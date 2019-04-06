@@ -3,10 +3,15 @@
 # tRophicPosition
 `tRophicPosition` is a colaborative project of [Chris Harrod](http://harrodlab.net), [Andrew L. Jackson](https://github.com/AndrewLJackson), [Claudio Quezada-Romegialli](https://github.com/clquezada) and others. It consists of an R package incorporating a Bayesian model for the calculation of consumer trophic position using stable isotopes with one or two baselines. It uses the powerful approach of Markov Chain Monte Carlo simulations provided by [JAGS](http://mcmc-jags.sourceforge.net) and the statistical language [R](https://www.r-project.org).
 
-As of 29th of January 2018, we are releasing the version 0.7.5 of the package, the fourth release version. If you find any error, please send it to trophicposition-support@googlegroups.com and/or raise an issue in the GitHub page. Also you can also send a direct email to clquezada at harrodlab.net.
+As of 5th of April 2019, we are releasing the version 0.7.7 of the package, the fifth release version. If you find any error, please send it to trophicposition-support@googlegroups.com and/or raise an issue in the GitHub page. Also you can also send a direct email to clquezada at harrodlab.net.
 
 If you are interested in joining the tRophicPosition support group, do it at https://groups.google.com/d/forum/trophicposition-support
 
+## NEWS (05 April 2019)
+* Updating CRAN release to v 0.7.7 (archived recently). Small fix regarding examples.
+
+## NEWS (27 June 2018)
+* Fixed [issue 69](https://github.com/clquezada/tRophicPosition/issues/69) (parametricTP() when using only one baseline). This small fix changes current version of tRophicPosition to 0.7.6 only in GitHub. CRAN version will be updated soon.
 
 ## NEWS (29 January 2018)
 
@@ -31,7 +36,12 @@ The stable version of `tRophicPosition` is hosted on [CRAN](https://cran.r-proje
 install.packages("tRophicPosition")
 ```
 
-Remember to install [JAGS](http://mcmc-jags.sourceforge.net) for your platform as well.
+Remember to install [JAGS](http://mcmc-jags.sourceforge.net) for your platform as well. A number of packages are needed, which can be installed with:
+
+```{r}
+install.packages(c("coda", "data.table", "dplyr", "ggplot2", "gridExtra",
+"hdrcde", "MCMCglmm", "plyr", "rjags", "knitr", "rmarkdown"))
+```
 
 The development version of `tRophicPosition` must be installed from GitHub. For this, install the package devtools, and then use the function `install_github()`:
 
@@ -53,9 +63,11 @@ Can be found in GitHub [here](https://github.com/clquezada/tRophicPosition/wiki/
 `tRophicPosition` relies on some code from [coda](https://cran.r-project.org/package=coda) and [dispRity](https://github.com/TGuillerme/dispRity). At the moment [dispRity](https://github.com/TGuillerme/dispRity) is only available through GitHub, so it is not included in Suggests. `tRophicPosition` included the Bhattacharrya Coefficient (bhatt.coeff function from [dispRity](https://github.com/TGuillerme/dispRity)) and plotMCMC (from [coda](https://cran.r-project.org/package=coda)) for convenience.
 
 ## Citation
-While the paper describing `tRophicPosition` is not published (currently under revision at MEE), to cite the package in publications please use:
+When citing `tRophicPosition` in publications, please cite both the paper describing the method and the package version you used to analyse your data:
   
-Claudio Quezada-Romegialli, Andrew L Jackson and Chris Harrod (2018).
+Claudio Quezada-Romegialli, Andrew L Jackson, Brian Hayden, Kimmo K Kahilainen, Christelle Lopes and Chris Harrod (2018). `tRophicPosition` , an R package for the Bayesian estimation of trophic position from consumer stable isotope ratios. Methods in Ecology and Evolution, 9(6):1592-1599. doi:[10.1111/2041-210X.13009](http://doi.org/10.1111/2041-210X.13009)
+
+Claudio Quezada-Romegialli, Andrew L Jackson, Brian Hayden, Kimmo K Kahilainen, Christelle Lopes and Chris Harrod (2018).
 tRophicPosition: Bayesian Trophic Position Calculation with Stable Isotopes. R package version 0.7.5. [https://cran.r-project.org/package=tRophicPosition](https://cran.r-project.org/package=tRophicPosition) doi:[10.5281/zenodo.1161826](https://doi.org/10.5281/zenodo.1161826)
   
 For previous releases please use the corresponding version and doi when citing:

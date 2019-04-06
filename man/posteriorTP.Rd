@@ -4,8 +4,8 @@
 \alias{posteriorTP}
 \title{Function to generate posterior samples of a trophic position JAGS model}
 \usage{
-posteriorTP(model, variable.names = c("TP", "muDeltaN"), n.iter = 10000,
-  burnin = NULL, thin = 10, quiet = FALSE, ...)
+posteriorTP(model, variable.names = c("TP", "muDeltaN"),
+  n.iter = 10000, burnin = NULL, thin = 10, quiet = FALSE, ...)
 }
 \arguments{
 \item{model}{a JAGS model object returned by any of functions
@@ -35,9 +35,11 @@ wrapper of \code{\link[rjags]{jags.samples}}. It extracts random samples from
 the posterior distribution of the parameters of a jags model.
 }
 \examples{
+\dontrun{
 isotopeData <- generateTPData()
 model.string <- jagsBayesianModel()
 model <- TPmodel(data = isotopeData, model.string = model.string,
 n.adapt = 500)
 posterior.samples <- posteriorTP(model, n.iter = 500)
+}
 }

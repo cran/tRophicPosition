@@ -34,10 +34,12 @@
 #' @import coda
 #'
 #' @examples
+#' \dontrun{
 #' isotopeData <- generateTPData()
 #' models <- multiModelTP(isotopeData, n.adapt = 500, n.iter = 500,
 #' burnin = 500)
 #' credibilityIntervals(models$gg, x = "model")
+#' }
 
 multiModelTP <- function (siData = siData, lambda = 2,
                           n.chains = 2,
@@ -224,6 +226,9 @@ multiModelTP <- function (siData = siData, lambda = 2,
     easyAlpha_list[[model_txt]] <- as.matrix(samples)[,2]
     easySamples_list[[model_txt]] <- samples
   }
+
+  #stupid CRAN fix
+  #close(model.string)
 
   if (model != "oneBaseline")
     return(list("TP" = as.list(easyTP_list),
