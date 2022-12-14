@@ -4,8 +4,16 @@
 \alias{plot.isotopeData}
 \title{Plot stable isotope data (2 elements) with one or two baselines}
 \usage{
-\method{plot}{isotopeData}(x, consumer = NULL, b1 = NULL, b2 = NULL,
-  legend = c(1.15, 1.15), density = "both", ...)
+\method{plot}{isotopeData}(
+  x,
+  consumer = NULL,
+  b1 = NULL,
+  b2 = NULL,
+  legend = c(1.15, 1.15),
+  density = "both",
+  xylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{an isotopeData class object.}
@@ -21,6 +29,8 @@
 \item{density}{string representing whether the density function is plotted.
 Accepted characters are "both" in which case this function will plot the
 density function above and to the right, "right", "above" or "none".}
+
+\item{xylim}{argument for modifying x-y limits (for testing)}
 
 \item{...}{additional arguments passed to this function.}
 }

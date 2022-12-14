@@ -1,25 +1,25 @@
-## ---- eval = FALSE, echo = FALSE-----------------------------------------
+## ---- eval = FALSE, echo = FALSE----------------------------------------------
 #  # To update sysdata
 #  sysdata <- tRophicPosition:::sysdata
 #  devtools::use_data(sysdata, internal = TRUE, overwrite = TRUE)
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  install.packages("tRophicPosition")
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  library(tRophicPosition)
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  install.packages("devtools")
 #  library(devtools)
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  install_github("clquezada/tRophicPosition", build_vignettes = TRUE)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(tRophicPosition)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 consumer1 <- generateTPData(dCb1 = -17.3, dNb1 = 14.2,
                             dCc = -15, dNc = 21,
                             dCb2 = -12.7, dNb2 = 15.4,
@@ -27,13 +27,13 @@ consumer1 <- generateTPData(dCb1 = -17.3, dNb1 = 14.2,
                             DeltaC = 0.39, sd.DeltaC = 1.3,
                             consumer = "Consumer 1")
 
-## ---- fig.width = 7, fig.height = 5--------------------------------------
+## ---- fig.width = 7, fig.height = 5-------------------------------------------
 plot(consumer1)
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  consumer1_models <- multiModelTP(consumer1)
 
-## ---- eval = FALSE, echo = FALSE-----------------------------------------
+## ---- eval = FALSE, echo = FALSE----------------------------------------------
 #  # To update sysdata
 #  consumer1_models <- multiModelTP(consumer1)
 #  sysdata <- tRophicPosition:::sysdata
@@ -43,11 +43,11 @@ plot(consumer1)
 #  #Bilagay_models$consumer1_models$samples <- NULL
 #  devtools::use_data(sysdata, internal = TRUE, overwrite = TRUE)
 
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
 consumer1_models <- multiModelTP(consumer1, n.adapt = 200, n.iter = 200, burnin = 200)
 consumer1_models <- tRophicPosition:::sysdata$vignetteMMCTP$consumer1_models
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 consumer2 <- generateTPData(dCb1 = -17.3, dNb1 = 14.2,
                             dCc = -15, dNc = 21,
                             dCb2 = -12.7, dNb2 = 15.4,
@@ -56,10 +56,10 @@ consumer2 <- generateTPData(dCb1 = -17.3, dNb1 = 14.2,
 consumer2$deltaN <- TDF(author = "McCutchan", element = "N")
 consumer2$deltaC <- TDF(author = "McCutchan", element = "C")
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  consumer2_models <- multiModelTP(consumer2)
 
-## ---- eval = FALSE, echo = FALSE-----------------------------------------
+## ---- eval = FALSE, echo = FALSE----------------------------------------------
 #  # To update sysdata
 #  consumer2_models <- multiModelTP(consumer2)
 #  sysdata <- tRophicPosition:::sysdata
@@ -68,22 +68,22 @@ consumer2$deltaC <- TDF(author = "McCutchan", element = "C")
 #  #Bilagay_models$consumer2_models$samples <- NULL #???
 #  devtools::use_data(sysdata, internal = TRUE, overwrite = TRUE)
 
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE------------------------------------------------------------
 consumer2_models <- multiModelTP(consumer2, n.adapt = 200, n.iter = 200, burnin = 200)
 consumer2_models <- tRophicPosition:::sysdata$vignetteMMCTP$consumer2_models
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  str(consumer1_models)
 
-## ---- fig.width = 6, fig.height = 4, warning=FALSE-----------------------
+## ---- fig.width = 6, fig.height = 4, warning=FALSE----------------------------
 # For consumer 1 (based on Post's (2002) TDF values)
 credibilityIntervals(consumer1_models$gg, x = "model")
 
-## ---- fig.width = 6, fig.height = 4, warning=FALSE-----------------------
+## ---- fig.width = 6, fig.height = 4, warning=FALSE----------------------------
 # For consumer 2 (based on McCutchan's (2003) TDF values)
 credibilityIntervals(consumer2_models$gg, x = "model")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Here we see that we have 4002 posterior samples of 3 parameters
 # (one for each Bayesian model) for consumer1
 str(consumer1_models$TP)
@@ -109,7 +109,7 @@ names(consumer2_models$TP) <- c("McCutchan-model1",
                                 "McCutchan-model2",
                                 "McCutchan-model2F")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Here we combine posterior estimates of trophic position for both consumers
 combined_models <- c(consumer1_models$TP, consumer2_models$TP)
 
@@ -119,15 +119,15 @@ sapply(combined_models, summary)
 # And we calculate the modes
 getPosteriorMode(combined_models)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 compareTwoDistributions(combined_models$"Post-model1",
                         combined_models$"McCutchan-model1", 
                         test = "<=")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 pairwiseComparisons(combined_models, test = "<=")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # First we combine both consumers' isotope values into a named list
 consumers <- list("consumer1" = consumer1, "consumer2" = consumer2)
 

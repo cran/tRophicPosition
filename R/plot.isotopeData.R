@@ -9,6 +9,7 @@
 #'   Accepted characters are "both" in which case this function will plot the
 #'   density function above and to the right, "right", "above" or "none".
 #' @param ... additional arguments passed to this function.
+#' @param xylim argument for modifying x-y limits (for testing)
 #'
 #' @return a ggplot2 object with the biplot of isotopes.
 #' @export
@@ -23,6 +24,7 @@ plot.isotopeData <- function (x,
                               b2 = NULL,
                               legend = c(1.15, 1.15),
                               density = "both",
+                              xylim = NULL,
                               ...) {
 
   if (is.null(b1) & is.null(attributes(x)$baseline1))
@@ -50,7 +52,8 @@ plot.isotopeData <- function (x,
                       b1 = b1,
                       b2 = b2,
                       legend = legend,
-                      density = density)))
+                      density = density,
+                      xylim = xylim)))
     else
       invisible(utils::capture.output(screenIsotopeData(isotopeData = x,
                         consumer = consumer,
@@ -58,5 +61,6 @@ plot.isotopeData <- function (x,
                         b2 = b2,
                         legend = legend,
                         density = density,
-                        title = attributes(x)$group)))
+                        title = attributes(x)$group),
+                        xylim = xylim))
 }
